@@ -3,11 +3,11 @@ const baseUrl = '/api/blogs'
 
 let loggedInUser = null;
 
-const setUser = (user) =>{
+const setUser = (user) => {
   loggedInUser = user;
 }
 
-const getConfig = () =>{
+const getConfig = () => {
   const config = {
     headers:{}
   }
@@ -22,8 +22,8 @@ const getAll = async () => {
   return response.data;
 }
 
-const create = async (blog) =>{
-  const response = await axios.post(baseUrl,{...blog,user:loggedInUser.id},getConfig())
+const create = async (blog) => {
+  const response = await axios.post(baseUrl,{ ...blog,user:loggedInUser.id },getConfig())
   return response.data;
 }
 
