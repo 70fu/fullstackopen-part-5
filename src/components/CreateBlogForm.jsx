@@ -23,7 +23,7 @@ const CreateBlogForm = ({ addBlog, pushSuccess, pushError }) => {
   const handleBlogCreate = async (target) => {
     target.preventDefault();
 
-    //TODO don't even try sending a post request, if one of the fields is empty and inform the user
+    //don't even try sending a post request, if one of the fields is empty and inform the user
     if(!title || !author || !url){
       pushError('please input title, author and url');
       return;
