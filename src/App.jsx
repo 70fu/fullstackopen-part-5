@@ -39,6 +39,7 @@ const App = () => {
     if(notifications.length!==0){
       notificationTimeoutId = setTimeout(updateNotifications,notifications[0].showUntil.getTime()-Date.now()+10);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [notifications]);
 
   const cancelNotificationTimeout = () => {

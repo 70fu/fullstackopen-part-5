@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import blogService from '../services/blogs';
 
 const Blog = ({ blog, showDelete, handleBlogUpdate, handleBlogRemove }) => {
@@ -37,5 +38,12 @@ const Blog = ({ blog, showDelete, handleBlogUpdate, handleBlogRemove }) => {
     );
   }
 }
+
+Blog.propTypes = {
+  blog:PropTypes.object.isRequired,
+  showDelete:PropTypes.bool.isRequired,
+  handleBlogUpdate:PropTypes.func.isRequired,
+  handleBlogRemove:PropTypes.func.isRequired
+};
 
 export default Blog
