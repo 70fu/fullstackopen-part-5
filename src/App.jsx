@@ -93,6 +93,10 @@ const App = () => {
     setBlogs(newBlogList);
   }
 
+  const handleBlogRemove = (removed) => {
+    setBlogs(blogs.filter((blog) => blog.id!==removed.id));
+  }
+
   const handleLogin = async (target) => {
     target.preventDefault();
     try{
@@ -168,7 +172,11 @@ const App = () => {
       </Togglable>
       {blogs.toSorted(((a,b) => b.likes-a.likes))
         .map(blog =>
-          <Blog key={blog.id} blog={blog} handleBlogUpdate={handleBlogUpdate}/>
+          <Blog key={blog.id}
+            blog={blog}
+            showDelete={user.username===blog.user.username}
+            handleBlogUpdate={handleBlogUpdate}
+            handleBlogRemove={handleBlogRemove}/>
         )}
     </div>
   )
