@@ -88,6 +88,11 @@ const App = () => {
     setBlogs(blogs.concat(blog));
   }
 
+  const handleBlogUpdate = (updated) => {
+    const newBlogList = blogs.map((blog) => blog.id===updated.id?updated:blog);
+    setBlogs(newBlogList);
+  }
+
   const handleLogin = async (target) => {
     target.preventDefault();
     try{
@@ -162,7 +167,7 @@ const App = () => {
           pushSuccess={pushSuccess}/>
       </Togglable>
       {blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
+        <Blog key={blog.id} blog={blog} handleBlogUpdate={handleBlogUpdate}/>
       )}
     </div>
   )

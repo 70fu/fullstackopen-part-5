@@ -27,4 +27,14 @@ const create = async (blog) => {
   return response.data;
 }
 
-export default { getAll, create, setUser }
+const update = async (blog) => {
+  let requestBody = { ...blog };
+  if(blog.user.id){
+    requestBody.user = blog.user.id;
+  }
+
+  const response = await axios.put(`${baseUrl}/${blog.id}`, requestBody, getConfig());
+  return response.data;
+}
+
+export default { getAll, create, setUser, update }

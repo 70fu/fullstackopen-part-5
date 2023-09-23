@@ -1,11 +1,14 @@
 import { useState } from 'react';
+import blogService from '../services/blogs';
 
-const Blog = ({ blog }) => {
+const Blog = ({ blog, handleBlogUpdate }) => {
   const [showDetails, setShowDetails] = useState(false);
 
   const toggleDetails = () => setShowDetails(!showDetails);
-  const handleLike = (e) => {
+  const handleLike = async (e) => {
     console.log('like button pressed for blog', blog);
+    const updated = await blogService.update({ ...blog,likes:blog.likes+1 });
+    handleBlogUpdate(updated);
   }
 
   if(showDetails){
