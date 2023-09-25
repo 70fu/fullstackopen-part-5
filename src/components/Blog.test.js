@@ -2,6 +2,7 @@ import React from 'react'
 import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
 import Blog from './Blog'
+import userEvent from '@testing-library/user-event'
 
 describe('<Blog />', () => {
   let container;
@@ -31,5 +32,16 @@ describe('<Blog />', () => {
     expect(blogDiv).not.toHaveTextContent(blog.url);
     expect(blogDiv).not.toHaveTextContent(blog.user.name);
     expect(blogDiv).not.toHaveTextContent(`likes ${blog.likes}`);
-  })
+  });
+
+  test('renders url and likes when view button is pressed', async () => {
+    const viewButton = screen.getByText('view');
+    await userEvent.click(viewButton);
+
+    const blogDiv = container.querySelector('.blog');
+    expect(blogDiv).toHaveTextContent(`${blog.title} ${blog.author}`);
+    expect(blogDiv).toHaveTextContent(blog.url);
+    expect(blogDiv).toHaveTextContent(blog.user.name);
+    expect(blogDiv).toHaveTextContent(`likes ${blog.likes}`);
+  });
 })
