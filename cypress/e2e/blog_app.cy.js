@@ -90,8 +90,20 @@ describe('Blog Application', () => {
         cy.get('.blog').find('button').contains('like').click();
         cy.get('.blog').should('contain',`likes ${i}`);
       }
+    });
 
-    })
+    it('user can delete a blog', function(){
+      cy.createBlog(blog);
+      cy.visit('');
+
+      cy.get('.blog').find('button').click();
+      cy.get('.blog').find('button').contains('remove').click();
+
+      cy.get('.blog').should('not.exist');
+      cy.contains(blog.title).should('not.exist');
+      cy.contains(blog.author).should('not.exist');
+      cy.contains(blog.url).should('not.exist');
+    });
   })
 
 })
