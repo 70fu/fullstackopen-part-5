@@ -104,6 +104,28 @@ describe('Blog Application', () => {
       cy.contains(blog.author).should('not.exist');
       cy.contains(blog.url).should('not.exist');
     });
+
+    it('user cannot delete a blog from another user', function(){
+      cy.createBlog(blog);
+      cy.visit('');
+      const secondUser = {
+        username:'lisa',
+        name:'Lisa G.',
+        password:'LisasSecret'
+      }
+      cy.request('POST', `${Cypress.env('BACKEND')}/users`, secondUser);
+      cy.login(secondUser);
+
+      //check that blog is there
+      cy.get('.blog')
+        .should('contain', blog.title)
+        .and('contain', blog.author);
+
+      //open details
+      cy.get('.blog').find('button').click();
+
+      cy.get('.blog').find('button').contains('remove').should('not.exist');
+    });
   })
 
 })
