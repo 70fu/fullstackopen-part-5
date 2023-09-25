@@ -127,7 +127,7 @@ describe('Blog Application', () => {
       cy.get('.blog').find('button').contains('remove').should('not.exist');
     });
 
-    it.only('blogs are sorted by likes', function(){
+    it('blogs are sorted by likes', function(){
       const LIKE_COUNT=2;
       const blogA ={
         title:'Blog A',
