@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import blogService from '../services/blogs';
 
 const Blog = ({ blog, showDelete, handleBlogUpdate, handleBlogRemove }) => {
   const [showDetails, setShowDetails] = useState(false);

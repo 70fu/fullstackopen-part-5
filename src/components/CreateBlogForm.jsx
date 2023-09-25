@@ -1,17 +1,18 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import blogService from '../services/blogs';
 
 const FormText = ({ name, value, setValue }) => {
   return (
     <div>
-      {name}
-      <input
-        type="text"
-        value={value}
-        name="name"
-        onChange={({ target }) => setValue(target.value)}
-      />
+      <label>
+        {name}
+        <input
+          type="text"
+          value={value}
+          name={name}
+          onChange={({ target }) => setValue(target.value)}
+        />
+      </label>
     </div>
   )
 }
