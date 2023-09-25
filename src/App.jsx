@@ -84,17 +84,20 @@ const App = () => {
     cancelNotificationTimeout();
   }
 
-  const addBlog = (blog) => {
+  const addBlog = async (newBlog) => {
+    const created = await blogService.create(newBlog);
     createBlogFormToggleRef.current.toggleVisibility();
-    setBlogs(blogs.concat(blog));
+    setBlogs(blogs.concat(created));
   }
 
-  const handleBlogUpdate = (updated) => {
+  const handleBlogUpdate = async (changed) => {
+    const updated = await blogService.update(changed);
     const newBlogList = blogs.map((blog) => blog.id===updated.id?updated:blog);
     setBlogs(newBlogList);
   }
 
-  const handleBlogRemove = (removed) => {
+  const handleBlogRemove = async (removed) => {
+    await blogService.remove(removed);
     setBlogs(blogs.filter((blog) => blog.id!==removed.id));
   }
 

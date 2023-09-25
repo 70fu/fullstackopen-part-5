@@ -6,16 +6,14 @@ const Blog = ({ blog, showDelete, handleBlogUpdate, handleBlogRemove }) => {
   const [showDetails, setShowDetails] = useState(false);
 
   const toggleDetails = () => setShowDetails(!showDetails);
-  const handleLike = async (e) => {
+  const handleLike = (e) => {
     console.log('like button pressed for blog', blog);
-    const updated = await blogService.update({ ...blog,likes:blog.likes+1 });
-    handleBlogUpdate(updated);
+    handleBlogUpdate({ ...blog,likes:blog.likes+1 });
   }
 
-  const handleRemove = async (e) => {
+  const handleRemove = (e) => {
     console.log('Remove button pressed for blog',blog);
     if(window.confirm(`Remove blog ${blog.title} by ${blog.author}?`)){
-      await blogService.remove(blog);
       handleBlogRemove(blog);
     }
   }

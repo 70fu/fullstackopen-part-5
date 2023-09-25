@@ -42,8 +42,7 @@ const CreateBlogForm = ({ addBlog, pushSuccess, pushError }) => {
       url: url
     }
 
-    const created = await blogService.create(blog);
-    addBlog(created);
+    addBlog(blog);
 
     pushSuccess(`added a new blog "${title}" by "${author}"`)
 

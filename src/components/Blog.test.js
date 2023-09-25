@@ -44,4 +44,18 @@ describe('<Blog />', () => {
     expect(blogDiv).toHaveTextContent(blog.user.name);
     expect(blogDiv).toHaveTextContent(`likes ${blog.likes}`);
   });
+
+  test('like button clicks are registered', async () => {
+    const CLICK_COUNT = 2;
+    const viewButton = screen.getByText('view');
+    await userEvent.click(viewButton);
+
+    const likeButton = screen.getByText('like');
+    for (let i = 0; i < CLICK_COUNT; i++) {
+      await userEvent.click(likeButton);
+    }
+
+    expect(handleBlogUpdateMock.mock.calls).toHaveLength(CLICK_COUNT);
+    expect(handleBlogUpdateMock.mock.calls[0][0].likes).toBe(blog.likes+1);
+  })
 })
