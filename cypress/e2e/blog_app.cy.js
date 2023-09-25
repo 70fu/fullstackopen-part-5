@@ -48,13 +48,13 @@ describe('Blog Application', () => {
     beforeEach(function() {
       cy.login(user);
     })
+    const blog = {
+      title: 'React patterns',
+      author: 'Michael Chan',
+      url: 'https://reactpatterns.com/'
+    };
 
     it('A blog can be created', function() {
-      const blog = {
-        title: 'React patterns',
-        author: 'Michael Chan',
-        url: 'https://reactpatterns.com/'
-      };
       cy.contains('new blog').click();
 
       cy.get('label').contains('title').find('input').type(blog.title);
@@ -78,6 +78,19 @@ describe('Blog Application', () => {
       cy.get('.blog')
         .should('contain',blog.url)
         .and('contain','likes 0');
+    })
+
+    it('user can like a blog', function(){
+      const LIKE_COUNT = 2;
+      cy.createBlog(blog);
+      cy.visit('');
+
+      cy.get('.blog').find('button').click();
+      for (let i = 1; i <= LIKE_COUNT; i++) {
+        cy.get('.blog').find('button').contains('like').click();
+        cy.get('.blog').should('contain',`likes ${i}`);
+      }
+
     })
   })
 

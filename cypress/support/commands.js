@@ -17,6 +17,17 @@ Cypress.Commands.add('login', ({ username, password }) => {
       cy.visit('');
     });
 });
+
+Cypress.Commands.add('createBlog', (blog) => {
+  cy.request({
+    url: `${Cypress.env('BACKEND')}/blogs`,
+    method: 'POST',
+    body: blog,
+    headers: {
+      'Authorization': `Bearer ${JSON.parse(localStorage.getItem('loggedInBlogUser')).token}`
+    }
+  });
+});
 //
 //
 // -- This is a child command --
