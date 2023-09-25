@@ -57,7 +57,7 @@ const CreateBlogForm = ({ addBlog, pushSuccess, pushError }) => {
       <FormText name="title:" value={title} setValue={setTitle} />
       <FormText name="author:" value={author} setValue={setAuthor} />
       <FormText name="url:" value={url} setValue={setUrl} />
-      <button type="submit">create</button>
+      <button id="create-blog-button" type="submit">create</button>
     </form>
   )
 }
