@@ -126,6 +126,48 @@ describe('Blog Application', () => {
 
       cy.get('.blog').find('button').contains('remove').should('not.exist');
     });
+
+    it.only('blogs are sorted by likes', function(){
+      const LIKE_COUNT=2;
+      const blogA ={
+        title:'Blog A',
+        author:'A-san',
+        url:'a.com'
+      }
+      const blogB = {
+        title:'Blog B',
+        author:'B-san',
+        url:'b.com'
+      }
+      cy.createBlog(blogA);
+      cy.createBlog(blogB);
+      cy.visit('');
+
+      cy.get('.blog').find('button').contains('view').click();
+      //this presses two different buttons, since the label changes from view->hide
+      cy.get('.blog').find('button').contains('view').click();
+
+      //like blog B LIKE_COUNT TIMES
+      for (let i = 1; i <= LIKE_COUNT; i++) {
+        cy.get('.blog').contains(blogB.title).find('button').contains('like').click();
+        cy.get('.blog').contains(blogB.title).should('contain',`likes ${i}`);
+      }
+
+      //check order B -> A
+      cy.get('.blog').eq(0).should('contain',blogB.title);
+      cy.get('.blog').eq(1).should('contain',blogA.title);
+
+      //like blog A LIKE_COUNT+1 times
+      for (let i = 1; i <= LIKE_COUNT+1; i++) {
+        cy.get('.blog').contains(blogA.title).find('button').contains('like').click();
+        cy.get('.blog').contains(blogA.title).should('contain',`likes ${i}`);
+      }
+
+      //check order A -> B
+      cy.get('.blog').eq(0).should('contain',blogA.title);
+      cy.get('.blog').eq(1).should('contain',blogB.title);
+
+    });
   })
 
 })
